@@ -15,11 +15,3 @@ describe Station do
 	end
 
 end
-	
-# 	it 'Holds an empty array called zone' do
-# 		expect(subject.zone).to respond_to (:empty?)
-# 	end
-
-# 	it " name" do
-# end
-
