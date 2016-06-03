@@ -1,4 +1,7 @@
 #Oystercard file 
+require_relative './tfl'
+require_relative './journey_log'
+require_relative './journey'
 
 
 class Oystercard
@@ -11,6 +14,7 @@ class Oystercard
     @balance = 0
     @user_travelling = false
     @journey_history = {}
+    @journey_log = JourneyLog.new
   end	
 
   def top_up(amount)
@@ -30,7 +34,7 @@ class Oystercard
 
   def touch_out(station_out)
     @user_travelling = false
-    @balance -= MINIMUM_FARE
+    @balance -= Tfl.fare(Journey.new)
     journey_history[@entry_station] = station_out
     @entry_station = nil
     @exit_station = station_out
