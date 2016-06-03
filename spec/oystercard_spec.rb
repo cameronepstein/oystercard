@@ -51,7 +51,7 @@ describe Oystercard do
   	expect(oystercard.in_journey?).to be false
   end
 
-  it "charges card on touch out" do
+  it "charges card on touch out", :focus => true do
   	expect {oystercard.touch_out(station_out)}.to change{oystercard.balance}.by(-Oystercard::MINIMUM_FARE)
   end
 
@@ -89,5 +89,8 @@ describe Oystercard do
 
   end
 
+  it '#touch_out charges a penalty fee if oystercard did not touch in' do
+    expect {oystercard.touch_out(station_out)}.to change{oystercard.balance}.by(-10)
+  end
 end
 end

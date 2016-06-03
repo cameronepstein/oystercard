@@ -1,17 +1,16 @@
+require_relative '../../lib/oystercard'
 
-require_relative '../lib/oystercard'
+describe 'Feature test' do 
+  let(:my_card) {Oystercard.new}
 
-describe 'feature test' do 
-	my_card = Oystercard.new
-	my_card.balance 
-	my_card.top_up(5)
-	# my_card.top_up(90)
-	fare = 2 
-	#my_card.deduct(fare)
-	# my_card.entry_station
-	# my_card.touch_in
-	#my_card.entry_station?
-	#my_card.journey_history
-	#journey_history[:entry_station] = exit_station
-	#station = Station.new
+  it 'OysterCard charges a penalty fare if user touches out without touching in' do
+    expect {my_card.touch_out(Station.new(1, 'St. Pancras'))}.to change{my_card.balance}.by(-10)
+  end
+
+  it 'OysterCard charges a minimun fare if user touches in then out at different station' do
+    my_card.top_up(88)
+    my_card.touch_in(Station.new(1,'St pancreas, the pain in the belly'))
+    expect {my_card.touch_out(Station.new(1, 'Angie'))}.to change{my_card.balance}.by(-1)
+  end 
+
 end 
